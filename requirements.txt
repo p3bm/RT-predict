@@ -1,0 +1,8 @@
+numpy
+streamlit
+pandas
+rdkit
+sklearn
+pickle
+matplotlib
+concurrent
