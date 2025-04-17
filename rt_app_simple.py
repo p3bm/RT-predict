@@ -7,10 +7,8 @@ from rdkit import RDLogger
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.linear_model import Ridge, Lasso, ElasticNet
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import mean_squared_error
 import pickle
 import matplotlib.pyplot as plt
-import time
 from concurrent.futures import ProcessPoolExecutor
 
 RDLogger.DisableLog('rdApp.*')
@@ -148,8 +146,8 @@ def clean_descriptor_data(df, var_thresh, corr_thresh):
 def train_models(X, y):
     models = {
         "Ridge": Ridge(),
-        "Lasso": Lasso(max_iter=10000),
-        "ElasticNet": ElasticNet(max_iter=10000)
+        "Lasso": Lasso(max_iter=50000),
+        "ElasticNet": ElasticNet(max_iter=50000)
     }
 
     params = {
@@ -163,7 +161,7 @@ def train_models(X, y):
 
     best_models = {}
     for name in models:
-        search = RandomizedSearchCV(models[name], params[name], n_iter=25, scoring='neg_mean_squared_error', cv=5, random_state=42, n_jobs=-1)
+        search = RandomizedSearchCV(models[name], params[name], n_iter=25, scoring='neg_mean_squared_error', cv=5, n_jobs=-1)
         search.fit(X, y)
         best_models[name] = (search.best_estimator_, -search.best_score_, search.best_params_)
 
@@ -221,7 +219,7 @@ if mode == "Train and Tune a Model":
         st.success(f"Best Model: {best_model_name} (MSE: {best_score:.3f})")
 
         X = df_desc[best_features].values
-        X_train_raw, X_test_raw, y_train_plot, y_test_plot = train_test_split(X, y, test_size=0.4, random_state=42)
+        X_train_raw, X_test_raw, y_train_plot, y_test_plot = train_test_split(X, y, test_size=0.4)
         X_train_plot = best_scaler.transform(X_train_raw)
         X_test_plot = best_scaler.transform(X_test_raw)
 
