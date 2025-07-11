@@ -12,6 +12,10 @@ import matplotlib.pyplot as plt
 from concurrent.futures import ProcessPoolExecutor
 
 RDLogger.DisableLog('rdApp.*')
+
+# Logo on top left
+st.image('./catsci-logo.svg', width=200)  # Adjust width as needed
+
 st.title("Retention Time Prediction Tool")
 
 with st.expander("❗ Instructions"):
