@@ -10,6 +10,7 @@ from sklearn.preprocessing import StandardScaler
 import pickle
 import matplotlib.pyplot as plt
 from concurrent.futures import ProcessPoolExecutor
+from datetime import datetime
 
 RDLogger.DisableLog('rdApp.*')
 
@@ -17,6 +18,7 @@ RDLogger.DisableLog('rdApp.*')
 st.image('./catsci-logo.svg', width=200)  # Adjust width as needed
 
 st.title("Retention Time Prediction Tool")
+st.write(f"Patrick Mann, {datetime.now().year}")
 
 with st.expander("❗ Instructions"):
     st.markdown("""
