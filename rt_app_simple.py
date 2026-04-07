@@ -161,7 +161,7 @@ def train_models(X_train, y_train):
         search = RandomizedSearchCV(
             pipe,
             params[name],
-            n_iter=50,
+            n_iter=100,
             scoring='r2',
             cv=5,
             n_jobs=-1,
