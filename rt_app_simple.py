@@ -19,7 +19,7 @@ RDLogger.DisableLog('rdApp.*')
 
 # ----------------------------- UI -----------------------------
 st.image('./catsci-logo.svg', width=200)
-st.title("Retention Time Prediction Tool")
+st.title("Simple RT Prediction")
 st.write(f"Patrick Mann, {datetime.now().year}")
 
 # ----------------------------- Descriptor Calculation -----------------------------
