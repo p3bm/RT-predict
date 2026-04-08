@@ -19,8 +19,9 @@ RDLogger.DisableLog('rdApp.*')
 
 # ----------------------------- UI -----------------------------
 st.image('./catsci-logo.svg', width=200)
-st.title("Simple RT Prediction")
-st.write(f"Patrick Mann, {datetime.now().year}")
+st.title("Retention Time Predictor")
+st.write("""Train and use simple regression models for predicting reverse phase LC retention times. 
+Works best with datasets containing >10 similar compounds with corresponding RTs acquired on a single LC method.""")
 
 # ----------------------------- Descriptor Calculation -----------------------------
 def compute_3d_descriptors(mol):
