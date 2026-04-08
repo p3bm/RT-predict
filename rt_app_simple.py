@@ -124,8 +124,8 @@ class DescriptorCleaner(BaseEstimator, TransformerMixin):
 # ----------------------------- Model Training -----------------------------
 def train_models(X_train, y_train):
     models = {
-        #"ElasticNet": ElasticNet(max_iter=50000),
-        #"RandomForest": RandomForestRegressor(random_state=42),
+        "ElasticNet": ElasticNet(max_iter=50000),
+        "RandomForest": RandomForestRegressor(random_state=42),
         "GradientBoosting": GradientBoostingRegressor(random_state=42)
     }
 
