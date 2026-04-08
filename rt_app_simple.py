@@ -158,7 +158,7 @@ def train_models(X_train, y_train):
             pipe,
             params[name],
             n_iter=100,
-            scoring='r2',
+            scoring='neg_root_mean_square',
             cv=5,
             n_jobs=1,
             random_state=42
@@ -209,7 +209,7 @@ if mode == "Train and Tune a Model":
             models.items(), key=lambda x: x[1][1]
         )
 
-        st.success(f"Best Model: {best_name} (CV R²: {best_score:.4f})")
+        st.success(f"Best Model: {best_name} (CV RMSE: {best_score:.4f})")
 
         # Test evaluation
         y_pred = best_model.predict(X_test)
