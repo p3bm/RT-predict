@@ -124,25 +124,18 @@ class DescriptorCleaner(BaseEstimator, TransformerMixin):
 # ----------------------------- Model Training -----------------------------
 def train_models(X_train, y_train):
     models = {
+        "Ridge": Ridge(),
+        "Lasso": Lasso(max_iter=50000),
         "ElasticNet": ElasticNet(max_iter=50000),
-        "RandomForest": RandomForestRegressor(random_state=42),
-        "GradientBoosting": GradientBoostingRegressor(random_state=42)
     }
 
     params = {
+        "Ridge": {"model__alpha": np.logspace(-4, 4, 100)},
+        "Lasso": {"model__alpha": np.logspace(-6, 2, 100)},
         "ElasticNet": {
             "model__alpha": np.logspace(-6, 2, 100),
             "model__l1_ratio": np.linspace(0.1, 1.0, 10)
         },
-        "RandomForest": {
-            "model__n_estimators": [100, 200, 500],
-            "model__max_depth": [None, 5, 10, 20]
-        },
-        "GradientBoosting": {
-            "model__n_estimators": [100, 200, 300],
-            "model__learning_rate": [0.01, 0.05, 0.1],
-            "model__max_depth": [3, 5]
-        }
     }
 
     best_models = {}
@@ -157,7 +150,7 @@ def train_models(X_train, y_train):
         search = RandomizedSearchCV(
             pipe,
             params[name],
-            n_iter=100,
+            n_iter=200,
             scoring='neg_root_mean_squared_error',
             cv=5,
             n_jobs=1,
@@ -199,7 +192,7 @@ if mode == "Train and Tune a Model":
 
         # SPLIT FIRST (no leakage)
         X_train, X_test, y_train, y_test = train_test_split(
-            df_desc, y, test_size=0.4, random_state=42
+            df_desc, y, test_size=0.35, random_state=42
         )
 
         st.info("Training models...")
