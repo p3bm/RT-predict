@@ -124,16 +124,12 @@ class DescriptorCleaner(BaseEstimator, TransformerMixin):
 # ----------------------------- Model Training -----------------------------
 def train_models(X_train, y_train):
     models = {
-        "Ridge": Ridge(),
-        "Lasso": Lasso(max_iter=50000),
         "ElasticNet": ElasticNet(max_iter=50000),
         "RandomForest": RandomForestRegressor(random_state=42),
         "GradientBoosting": GradientBoostingRegressor(random_state=42)
     }
 
     params = {
-        "Ridge": {"model__alpha": np.logspace(-4, 4, 100)},
-        "Lasso": {"model__alpha": np.logspace(-6, 2, 100)},
         "ElasticNet": {
             "model__alpha": np.logspace(-6, 2, 100),
             "model__l1_ratio": np.linspace(0.1, 1.0, 10)
@@ -161,7 +157,7 @@ def train_models(X_train, y_train):
         search = RandomizedSearchCV(
             pipe,
             params[name],
-            n_iter=30,
+            n_iter=50,
             scoring='r2',
             cv=5,
             n_jobs=1,
