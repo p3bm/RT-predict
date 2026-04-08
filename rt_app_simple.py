@@ -130,17 +130,17 @@ def train_models(X_train, y_train):
     }
 
     params = {
-        #"ElasticNet": {
-        #    "model__alpha": np.logspace(-6, 2, 100),
-        #    "model__l1_ratio": np.linspace(0.1, 1.0, 10)
-        #},
-        #"RandomForest": {
-        #    "model__n_estimators": [100, 200],
-        #    "model__max_depth": [None, 10, 20]
-        #},
+        "ElasticNet": {
+            "model__alpha": np.logspace(-6, 2, 100),
+            "model__l1_ratio": np.linspace(0.1, 1.0, 10)
+        },
+        "RandomForest": {
+            "model__n_estimators": [100, 200, 500],
+            "model__max_depth": [None, 5, 10, 20]
+        },
         "GradientBoosting": {
-            "model__n_estimators": [100, 200],
-            "model__learning_rate": [0.05, 0.1],
+            "model__n_estimators": [100, 200, 300],
+            "model__learning_rate": [0.01, 0.05, 0.1],
             "model__max_depth": [3, 5]
         }
     }
@@ -157,7 +157,7 @@ def train_models(X_train, y_train):
         search = RandomizedSearchCV(
             pipe,
             params[name],
-            n_iter=50,
+            n_iter=100,
             scoring='r2',
             cv=5,
             n_jobs=1,
