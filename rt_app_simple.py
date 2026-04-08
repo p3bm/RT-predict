@@ -199,7 +199,7 @@ if mode == "Train and Tune a Model":
 
         # SPLIT FIRST (no leakage)
         X_train, X_test, y_train, y_test = train_test_split(
-            df_desc, y, test_size=0.3, random_state=42
+            df_desc, y, test_size=0.4, random_state=42
         )
 
         st.info("Training models...")
