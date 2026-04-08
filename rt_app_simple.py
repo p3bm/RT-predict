@@ -158,7 +158,7 @@ def train_models(X_train, y_train):
             pipe,
             params[name],
             n_iter=100,
-            scoring='neg_root_mean_square',
+            scoring='neg_root_mean_squared_error',
             cv=5,
             n_jobs=1,
             random_state=42
